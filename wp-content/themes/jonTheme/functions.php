@@ -31,28 +31,7 @@ function svg_upload_allow( $mimes ) {
 	return $mimes;
 }
 
-add_filter('wp_nav_menu_objects', 'my_wp_nav_menu_objects', 10, 2);
-
-function my_wp_nav_menu_objects( $items, $args ) {
-  
-  // loop
-  foreach( $items as &$item ) {
-    
-    // vars
-    $icon = get_field('icon', $item);
-    
-    
-    // append icon
-    if( $icon ) {
-      
-        $item->title = $icon . $item->title;
-      
-    }
-    
-  }
-  
-  
-  // return
-  return $items;
-  
-}
+register_nav_menus(array(
+  "head_menu" => "Header menu",
+  "footer_menu" => "Footer menu"
+));

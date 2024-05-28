@@ -36,10 +36,16 @@ a{
   background-position: top center;
   min-height: 700px;
   color: #fff;
+  padding-top: 80px;
 }
 
 .header__top{
   padding: 47px 0 45px;
+  position: absolute;
+  width: 100%;
+}
+
+.header__top > .container {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -49,6 +55,7 @@ a{
   font-weight: 400;
   font-size: 36px;
   line-height: 54px;
+  color: #fff;
 }
 
 .header__content{
@@ -559,7 +566,10 @@ a{
 }
 
 @media (max-width: 520px){
-  .header__top{
+  .header {
+    padding-top: 150px;
+  }
+  .header__top > .container {
     flex-wrap: wrap;
     justify-content: center;
     text-align: center;

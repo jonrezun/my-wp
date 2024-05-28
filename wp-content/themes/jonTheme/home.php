@@ -3,23 +3,10 @@
 Template Name: Home
 */
 ?>
+<?php get_header(); ?>
 
-<!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="<?php bloginfo('charset'); ?>">
-    <title><?php wp_title('|', true, 'right'); ?></title>
-    <?php wp_head(); ?>
-</head>
-
-<body>
   <section class="header" style="background-image: url(<?php bloginfo('template_url'); ?>/assets/images/header-bg.jpg)">
     <div class="container">
-      <div class="header__top">
-        <?php the_custom_logo(); ?>
-        <a class="phone" href="tel:+<?php the_field('phone_number'); ?>"><?php the_field('phone'); ?></a>
-      </div>
       <div class="header__content">
         <h1 data-wow-delay=".5s" class="header__title wow animate__fadeInLeft">
            <?php the_field('title'); ?>
@@ -67,7 +54,19 @@ Template Name: Home
           <?php the_field("service_desc") ?>
           <a class="button button--decor" href="#">КОНСУЛЬТАЦИЯ ЭКСПЕРТА</a>
         </div>
-        <?php the_field("service_list") ?>
+        <ol class="services__list">
+          <?php 
+            $list = get_field("service_list");
+              foreach ($list as $item): array_map('htmlentities', $item);
+            ?>
+                 <li class="services__item wow animate__fadeInRight" data-wow-delay="1s" style="visibility: visible; animation-delay: 1s; animation-name: fadeInRight;">
+                  <p class="services__item-title"><?php echo $item["service_list_title"] ?></p>
+                  <p class="services__item-text"><?php echo $item["service_list_desc"] ?></p>
+                </li>
+            <?php
+              endforeach;
+            ?>
+        </ol>
       </div>
     </div>
   </section>
@@ -153,19 +152,19 @@ Template Name: Home
             <li class="contacts__item">
               <p class="contacts__item-title">Адрес</p>
               <p class="contacts__item-text">
-                <?php the_field('work_time') ?>
+                <?php the_field('address', 'option') ?>
               </p>
             </li>
             <li class="contacts__item">
               <p class="contacts__item-title">Время работы</p>
               <p class="contacts__item-text">
-                <?php the_field('work_time') ?>
+                <?php the_field('work_time', 'option') ?>
               </p>
             </li>
             <li class="contacts__item">
               <p class="contacts__item-title">Телефон</p>
               <p class="contacts__item-text">
-                <?php the_field('phone'); ?>
+                <?php the_field('phone', 'option'); ?>
               </p>
             </li>
           </ul>
@@ -178,33 +177,4 @@ Template Name: Home
     </div>
   </section>
 
-  <footer class="footer">
-    <div class="container">
-      <div class="footer__inner">
-      <?php the_custom_logo(); ?>
-
-        <div class="social footer__social">
-          <a class="social__link" href="#">
-            <img class="social__img" src="<?php bloginfo('template_url'); ?>/assets/images/icon/instagram.svg" alt="instagram icon">
-          </a>
-          <a class="social__link" href="#">
-            <img class="social__img" src="<?php bloginfo('template_url'); ?>/assets/images/icon/telegram.svg" alt="telegram icon">
-          </a>
-          <a class="social__link" href="#">
-            <img class="social__img" src="<?php bloginfo('template_url'); ?>/assets/images/icon/whatsapp.svg" alt="whatsapp icon">
-          </a>
-          <a class="social__link" href="#">
-            <img class="social__img" src="<?php bloginfo('template_url'); ?>/assets/images/icon/facebook.svg" alt="facebook icon">
-          </a>
-        </div>
-
-        <a class="footer__copy" href="#">
-          Политика конфиденциальности
-        </a>
-      </div>
-    </div>
-  </footer>
-
-  <?php wp_footer() ?>
-
-</body>
+  <?php get_footer(); ?>
